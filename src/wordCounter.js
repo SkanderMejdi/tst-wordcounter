@@ -17,7 +17,7 @@ function detachWords(words, minLength) {
 
 function wordCounter(text, minLength) {
 
-  var punctuationless = text.replace(/[.,\/#!?$%\^&\*;:{}=\_`~()]/g,"");
+  var punctuationless = text.replace(/[.,\/#!?$%\^&\*;:{}=\_`~()]/g," ");
   var wordTab = punctuationless.split(" ");
   var countTab = {};
 
