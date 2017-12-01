@@ -1,18 +1,38 @@
+function detachWords(words, minLength) {
+  var detached = {
+    "d": "de",
+    "l": "le",
+    "j": "je",
+    "m": "me"
+  };
+  var elems = [];
+
+  words = words.split("'");
+  for (var i = 0; i < words.length; i++) {
+    if (words[i].length >= minLength) {
+      elems.push(words[i]);
+    } else if (words[i] in detached) {
+      elems.push(detached[words[i]])
+    }
+  }
+  return elems;
+}
+
 function wordCounter(text, minLength) {
 
-  var punctuationless = text.replace(/[.,\/#!?$%\^&\*;:{}=\-_`~()]/g,"");
+  var punctuationless = text.replace(/[.,\/#!?$%\^&\*;:{}=\_`~()]/g,"");
   var wordTab = punctuationless.split(" ");
   var countTab = {};
 
   for (var i = 0; i < wordTab.length; i++) {
     wordTab[i] = wordTab[i].toLowerCase();
-    if (wordTab[i].length < minLength) {
-      wordTab.splice(i--, 1);
-    } else {
-      if (countTab[wordTab[i]] == 1) {
-        countTab[wordTab[i]] += 1
+
+    elems = detachWords(wordTab[i], minLength);
+    for (var j = 0; j < elems.length; j++) {
+      if (elems[j] in countTab) {
+        countTab[elems[j]] += 1
       } else {
-        countTab[wordTab[i]] = 1;
+        countTab[elems[j]] = 1;
       }
     }
   }
