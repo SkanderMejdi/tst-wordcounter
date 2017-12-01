@@ -1,18 +1,15 @@
 function detachWords(words, minLength) {
-  var detached = {
-    "d": "de",
-    "l": "le",
-    "j": "je",
-    "m": "me"
-  };
   var elems = [];
+  var detached = [];
+  var tmp = [];
 
-  words = words.split("'");
-  for (var i = 0; i < words.length; i++) {
-    if (words[i].length >= minLength) {
-      elems.push(words[i]);
-    } else if (words[i] in detached) {
-      elems.push(detached[words[i]])
+  tmp = words.split("'");
+  for (var i = 0; i < tmp.length; i++) {
+    detached = detached.concat(tmp[i].split("-"));
+  }
+  for (var i = 0; i < detached.length; i++) {
+    if (detached[i].length >= minLength) {
+      elems.push(detached[i]);
     }
   }
   return elems;
